@@ -1,5 +1,8 @@
 {
   "name": "Lens",
   "version": "1.0.0",
-  "main": "index.html"
+  "main": "index.html",
+  "dependencies": {
+    "mime": "^1.3.4"
+  }
 }

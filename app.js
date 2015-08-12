@@ -4,7 +4,9 @@
 
 // Dependencies
 //
-var fs = require('fs');
+var fs 		= require('fs');
+var mime    = require('mime');
+var path 	= require('path');
 
 
 
@@ -35,10 +37,40 @@ function hideSelectFolderButton () {
 
 
 
-function findAllImageFiles (folderPath, cb) {
+function findAllFiles (folderPath, cb) {
 	fs.readdir(folderPath, function (err, files) {
 		if (err) { return cb(err, null); }
 		cb(null, files);
+	});
+}
+
+
+
+var imageMimeTypes = [
+	'image/bmp',
+	'image/gif',
+	'image/jpeg',
+	'image/png',
+	'image/pjpeg',
+	'image/tiff',
+	'image/webp',
+	'image/x-tiff',
+	'image/x-windows-bmp'
+];
+
+
+
+function findImageFiles (files, folderPath, cb) {
+	var imageFiles = [];
+	files.forEach(function (file) {
+		var fullFilePath = path.resolve(folderPath,file);
+		var extension = mime.lookup(fullFilePath);
+		if (imageMimeTypes.indexOf(extension) !== -1) {
+			imageFiles.push({name: file, path: fullFilePath});
+		}
+		if (files.indexOf(file) === files.length-1) {
+			cb(imageFiles);
+		}
 	});
 }
 
@@ -49,9 +81,12 @@ function findAllImageFiles (folderPath, cb) {
 window.onload = function () {
 	bindSelectFolderClick(function (folderPath) {
 		hideSelectFolderButton();
-		findAllImageFiles(folderPath, function (err, files) {
-			console.log(err);
-			console.log(files);
+		findAllFiles(folderPath, function (err, files) {
+			if (!err) {
+				findImageFiles(files, folderPath, function (imageFiles) {
+					console.log(imageFiles);
+				});
+			}
 		});
 	});
 };
