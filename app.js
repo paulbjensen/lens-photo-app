@@ -2,6 +2,12 @@
 
 
 
+// Dependencies
+//
+var fs = require('fs');
+
+
+
 function openFolderDialog (cb) {
 	var inputField = document.querySelector('#folderSelector');
 	inputField.addEventListener('change', function () {
@@ -29,11 +35,23 @@ function hideSelectFolderButton () {
 
 
 
+function findAllImageFiles (folderPath, cb) {
+	fs.readdir(folderPath, function (err, files) {
+		if (err) { return cb(err, null); }
+		cb(null, files);
+	});
+}
+
+
+
 // Runs when the browser has loaded the page
 //
 window.onload = function () {
 	bindSelectFolderClick(function (folderPath) {
 		hideSelectFolderButton();
-		console.log(folderPath);
+		findAllImageFiles(folderPath, function (err, files) {
+			console.log(err);
+			console.log(files);
+		});
 	});
 };
