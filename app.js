@@ -76,6 +76,17 @@ function findImageFiles (files, folderPath, cb) {
 
 
 
+function addImageToPhotosArea (file) {
+	var photosArea = document.getElementById('photos');
+	var template = document.querySelector('#photo-template');
+	template.content.querySelector('img').src = file.path;
+	template.content.querySelector('img').setAttribute('data-name',file.name);
+	var clone = window.document.importNode(template.content, true);
+    photosArea.appendChild(clone);
+}
+
+
+
 // Runs when the browser has loaded the page
 //
 window.onload = function () {
@@ -84,7 +95,7 @@ window.onload = function () {
 		findAllFiles(folderPath, function (err, files) {
 			if (!err) {
 				findImageFiles(files, folderPath, function (imageFiles) {
-					console.log(imageFiles);
+					imageFiles.forEach(addImageToPhotosArea);
 				});
 			}
 		});

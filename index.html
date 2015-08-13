@@ -5,9 +5,15 @@
     <script src="app.js"></script>
   </head>
   <body>
+	<template id="photo-template">
+		<div class="photo">
+			<img />
+		</div>
+  	</template>
 	<input type="file" nwdirectory id="folderSelector"/>
     <div id="select_folder">
 	  <span>Select a folder containing photos</span>
 	</div>
+	<div id="photos"></div>
   </body>
 </html>
