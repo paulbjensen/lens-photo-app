@@ -87,9 +87,19 @@ function addImageToPhotosArea (file) {
 
 
 
+function displayPhotoInFullView (photo) {
+	var filePath = photo.querySelector('img').src;
+	var fileName = photo.querySelector('img').attributes[1].value;
+	document.querySelector('#fullViewPhoto > img').src = filePath;
+	document.querySelector('#fullViewPhoto > img').setAttribute('data-name', fileName);
+	document.querySelector('#fullViewPhoto').style.display = 'block';
+}
+
+
+
 function bindClickingOnAPhoto (photo) {
 	photo.onclick = function () {
-		console.log(this); // A placeholder until we load full view mode here
+		displayPhotoInFullView(photo);
 	};
 }
 
