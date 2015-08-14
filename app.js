@@ -97,6 +97,11 @@ function displayPhotoInFullView (photo) {
 
 
 
+function backToGridView () {
+	document.querySelector('#fullViewPhoto').style.display = 'none';
+}
+
+
 function bindClickingOnAPhoto (photo) {
 	photo.onclick = function () {
 		displayPhotoInFullView(photo);
