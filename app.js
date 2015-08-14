@@ -87,6 +87,24 @@ function addImageToPhotosArea (file) {
 
 
 
+function bindClickingOnAPhoto (photo) {
+	photo.onclick = function () {
+		console.log(this); // A placeholder until we load full view mode here
+	};
+}
+
+
+
+function bindClickingOnAllPhotos () {
+	var photos = document.querySelectorAll('.photo');
+	for (var i=0;i<photos.length;i++) {
+		var photo = photos[i];
+		bindClickingOnAPhoto(photo);
+	}
+}
+
+
+
 // Runs when the browser has loaded the page
 //
 window.onload = function () {
@@ -95,7 +113,12 @@ window.onload = function () {
 		findAllFiles(folderPath, function (err, files) {
 			if (!err) {
 				findImageFiles(files, folderPath, function (imageFiles) {
-					imageFiles.forEach(addImageToPhotosArea);
+					imageFiles.forEach(function (file, index) {
+						addImageToPhotosArea(file);
+						if (index === imageFiles.length-1) {
+							bindClickingOnAllPhotos();
+						}
+				    });
 				});
 			}
 		});
