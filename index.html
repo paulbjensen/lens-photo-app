@@ -2,6 +2,7 @@
   <head>
     <title>Lens</title>
     <link rel="stylesheet" href="app.css" />
+    <script src="scripts/caman.full.js"></script>
     <script src="app.js"></script>
   </head>
   <body>
@@ -16,9 +17,10 @@
 	</div>
 	<div id="photos"></div>
 	<div id="fullViewPhoto">
-		<img />
+		<img id="image"/>
 		<div id="toolbar">
-			<div id="back" onclick="backToGridView();">Back</div>
+			<div id="applyFilter" class="button" onclick="applyFilter();">Apply filter</div>
+			<div id="back" class="button" onclick="backToGridView();">Back</div>
 		</div>
 	</div>
   </body>
