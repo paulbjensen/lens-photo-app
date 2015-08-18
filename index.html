@@ -19,7 +19,22 @@
 	<div id="fullViewPhoto">
 		<img id="image"/>
 		<div id="toolbar">
-			<div id="applyFilter" class="button" onclick="applyFilter();">Apply filter</div>
+		    <div id="filterLabel">Filters</div>
+			<div class="filter" onclick="applyFilter('original');" title="original">
+				<img src="images/original.png" alt="original" />
+			</div>
+			<div class="filter" onclick="applyFilter('grayscale');" title="grayscale">
+				<img src="images/grayscale.png" alt="grayscale"/>
+			</div>
+			<div class="filter" onclick="applyFilter('sepia');" title="sepia">
+				<img src="images/sepia.png" alt="sepia"/>
+			</div>
+			<div class="filter" onclick="applyFilter('sunburst');" title="sunburst">
+				<img src="images/sunburst.png" alt="sunburst"/>
+			</div>
+			<div class="filter" onclick="applyFilter('port');" title="port">
+				<img src="images/port.png" alt="port"/>
+			</div>
 			<div id="back" class="button" onclick="backToGridView();">Back</div>
 		</div>
 	</div>

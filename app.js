@@ -86,7 +86,6 @@ function addImageToPhotosArea (file) {
 }
 
 
-
 function displayPhotoInFullView (photo) {
 	var filePath = photo.querySelector('img').src;
 	var fileName = photo.querySelector('img').attributes[1].value;
@@ -97,13 +96,48 @@ function displayPhotoInFullView (photo) {
 
 
 
-function applyFilter () {
+var filters = {
+	original: function (item) {},
+
+	grayscale: function (item) {
+		item.saturation(-100);
+		item.render();
+	},
+	sepia: function (item) {
+		item.saturation(-100);
+		item.vibrance(100);
+		item.sepia(100);
+		item.render();
+	}, 
+	sunburst: function (item) {
+		item.brightness(21);
+		item.vibrance(22);
+		item.contrast(11);
+		item.saturation(-18);
+		item.exposure(18);
+		item.sepia(17);
+		item.render();
+	},
+	port: function (item) {
+		item.vibrance(49);
+		item.hue(6);
+		item.gamma(0.6);
+		item.stackBlur(2);
+		item.contrast(11);
+		item.saturation(19);
+		item.exposure(2);
+		item.noise(2);
+		item.render();
+	}
+};
+
+
+
+function applyFilter (filterName) {
 	Caman('#image', function () {
-		this.brightness(10);
-    	this.sepia(20);
-    	this.saturation(30);
-    	this.render();
-	});	
+		this.reset();
+		filters[filterName](this);
+	});
 }
 
 
