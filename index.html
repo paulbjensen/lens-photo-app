@@ -11,6 +11,7 @@
 			<img />
 		</div>
   	</template>
+  	<input type="file" nwsaveas id="photoSaver"/>
 	<input type="file" nwdirectory id="folderSelector"/>
     <div id="select_folder">
 	  <span>Select a folder containing photos</span>
@@ -36,6 +37,7 @@
 				<img src="images/port.png" alt="port"/>
 			</div>
 			<div id="back" class="button" onclick="backToGridView();">Back</div>
+			<div id="save" class="button" onclick="saveToDisk();">Save as</div>
 		</div>
 	</div>
   </body>

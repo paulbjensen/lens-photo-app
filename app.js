@@ -8,7 +8,7 @@ var fs 		= require('fs');
 var mime    = require('mime');
 var path 	= require('path');
 
-
+var photoData = null;
 
 function openFolderDialog (cb) {
 	var inputField = document.querySelector('#folderSelector');
@@ -142,6 +142,29 @@ function applyFilter (filterName) {
 
 
 
+function bindSavingToDisk () {
+	var photoSaver 	= document.querySelector('#photoSaver');
+	photoSaver.addEventListener('change', function () {
+		var filePath = this.value;
+		fs.writeFile(filePath, photoData, 'base64', function (err) {
+			if (err) { alert('There was an error saving the photo:',err.message); }
+			photoData = null;
+		});
+	});
+}
+
+
+
+function saveToDisk () {
+	var photoSaver 	= document.querySelector('#photoSaver');
+	var canvas 		= document.querySelector('canvas');
+	photoSaver.setAttribute('nwsaveas','Copy of ' + canvas.attributes['data-name'].value);
+	photoData 		= canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
+	photoSaver.click();
+}
+
+
+
 function backToGridView () {
 	var canvas 	= document.querySelector('canvas');
 	var image 	= document.createElement('img');
@@ -184,6 +207,7 @@ window.onload = function () {
 						addImageToPhotosArea(file);
 						if (index === imageFiles.length-1) {
 							bindClickingOnAllPhotos();
+							bindSavingToDisk();
 						}
 				    });
 				});
