@@ -4,5 +4,9 @@
   "main": "index.html",
   "dependencies": {
     "mime": "^1.3.4"
+  },
+  "window": {
+  	"toolbar": false,
+  	"icon":"lens.png"
   }
 }

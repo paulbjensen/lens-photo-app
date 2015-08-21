@@ -167,11 +167,13 @@ function saveToDisk () {
 
 function backToGridView () {
 	var canvas 	= document.querySelector('canvas');
-	var image 	= document.createElement('img');
-	image.setAttribute('id','image');
-	canvas.parentNode.removeChild(canvas);
-	var fullViewPhoto = document.querySelector('#fullViewPhoto');
-	fullViewPhoto.insertBefore(image, fullViewPhoto.firstChild);
+	if (canvas) {
+		var image 	= document.createElement('img');
+		image.setAttribute('id','image');
+		canvas.parentNode.removeChild(canvas);
+		var fullViewPhoto = document.querySelector('#fullViewPhoto');
+		fullViewPhoto.insertBefore(image, fullViewPhoto.firstChild);		
+	}
 	document.querySelector('#fullViewPhoto').style.display = 'none';
 }
 
