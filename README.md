@@ -1,4 +1,4 @@
-# lens-photo-app
+# Lens
 <img src="https://raw.githubusercontent.com/paulbjensen/lens-photo-app/master/lens.png" width="128px" height="128px" />
 
 A desktop photo app, created for a tutorial on Scotch.io
