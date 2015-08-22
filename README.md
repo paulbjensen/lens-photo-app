@@ -23,3 +23,6 @@ Next, run NW.js on it:
 
     nw
     
+If you want to then build a binary version for your computer, run the following command:
+
+    nwbuild -p win32,win64,osx32,osx64,linux32,linux64 PATH_TO_LENS_FOLDER
