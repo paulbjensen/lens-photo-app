@@ -237,7 +237,6 @@ function loadAnotherFolder () {
 
 
 function loadMenu () {
- 	var menu 		= new gui.Menu();
 	var menuBar 	= new gui.Menu({type:'menubar'});
 	var menuItems 	= new gui.Menu();
 
