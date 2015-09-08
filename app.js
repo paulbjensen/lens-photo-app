@@ -202,9 +202,9 @@ function bindClickingOnAllPhotos () {
 }
 
 
+
 function clearArea () {
-	var photosArea = document.getElementById('photos');
-	photosArea.innerHTML = '';
+	document.getElementById('photos').innerHTML = '';
 }
 
 
