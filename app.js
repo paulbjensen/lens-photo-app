@@ -7,8 +7,13 @@
 var fs 		= require('fs');
 var mime    = require('mime');
 var path 	= require('path');
+var gui     = require('nw.gui');
+
+
 
 var photoData = null;
+
+
 
 function openFolderDialog (cb) {
 	var inputField = document.querySelector('#folderSelector');
@@ -197,6 +202,69 @@ function bindClickingOnAllPhotos () {
 }
 
 
+function clearArea () {
+	var photosArea = document.getElementById('photos');
+	photosArea.innerHTML = '';
+}
+
+
+
+function loadAnotherFolder () {
+	openFolderDialog(function (folderPath) {		
+		findAllFiles(folderPath, function (err, files) {
+			if (!err) {
+				clearArea();
+				echo.init({
+					offset: 0,
+     				throttle: 0,
+	     			unload: false
+				});
+				findImageFiles(files, folderPath, function (imageFiles) {
+					imageFiles.forEach(function (file, index) {
+						addImageToPhotosArea(file);
+						if (index === imageFiles.length-1) {
+							echo.render();
+							bindClickingOnAllPhotos();
+							bindSavingToDisk();
+						}
+				    });
+				});
+			}
+		});
+	});
+}
+
+
+
+function loadMenu () {
+ 	var menu 		= new gui.Menu();
+	var menuBar 	= new gui.Menu({type:'menubar'});
+	var menuItems 	= new gui.Menu();
+
+	menuItems.append(new gui.MenuItem({ label: 'Load another folder', click: loadAnotherFolder }));
+
+	var fileMenu = new gui.MenuItem({
+		label: 'File',
+		submenu: menuItems
+	});
+
+	if (process.platform === 'darwin') {
+
+		// Load Mac OS X application menu
+		menuBar.createMacBuiltin('Lens');
+		menuBar.insert(fileMenu, 1);
+
+	} else {
+
+		// Load Windows/Linux application menu
+		menuBar.append(fileMenu, 1);
+
+	}
+
+	gui.Window.get().menu = menuBar;
+
+}
+
 
 // Runs when the browser has loaded the page
 //
@@ -209,6 +277,7 @@ window.onload = function () {
 	});
 
 	bindSelectFolderClick(function (folderPath) {
+		loadMenu();
 		hideSelectFolderButton();
 		findAllFiles(folderPath, function (err, files) {
 			if (!err) {
