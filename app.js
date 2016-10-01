@@ -37,7 +37,7 @@ function bindSelectFolderClick (cb) {
 
 function hideSelectFolderButton () {
 	var button = document.querySelector('#select_folder');
-	button.style.display = 'none';	
+	button.style.display = 'none';
 }
 
 
@@ -71,7 +71,7 @@ function findImageFiles (files, folderPath, cb) {
 		var fullFilePath = path.resolve(folderPath,file);
 		var extension = mime.lookup(fullFilePath);
 		if (imageMimeTypes.indexOf(extension) !== -1) {
-			imageFiles.push({name: file, path: fullFilePath});
+			imageFiles.push({name: file, path: 'file://' + fullFilePath});
 		}
 		if (files.indexOf(file) === files.length-1) {
 			cb(imageFiles);
@@ -114,7 +114,7 @@ var filters = {
 		item.vibrance(100);
 		item.sepia(100);
 		item.render();
-	}, 
+	},
 	sunburst: function (item) {
 		item.brightness(21);
 		item.vibrance(22);
@@ -178,7 +178,7 @@ function backToGridView () {
 		image.setAttribute('id','image');
 		canvas.parentNode.removeChild(canvas);
 		var fullViewPhoto = document.querySelector('#fullViewPhoto');
-		fullViewPhoto.insertBefore(image, fullViewPhoto.firstChild);		
+		fullViewPhoto.insertBefore(image, fullViewPhoto.firstChild);
 	}
 	document.querySelector('#fullViewPhoto').style.display = 'none';
 }
@@ -210,7 +210,7 @@ function clearArea () {
 
 
 function loadAnotherFolder () {
-	openFolderDialog(function (folderPath) {		
+	openFolderDialog(function (folderPath) {
 		findAllFiles(folderPath, function (err, files) {
 			if (!err) {
 				clearArea();
